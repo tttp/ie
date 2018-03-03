@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+/* CSS goes here. */
+
+</style>
+<body>
+<style>
+  path {fill:#ccc;stroke:#fff;stroke-width:.5px}
+
+  path:hover {fill:grey;}
+</style>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script>
+
+var width = 960,
+    height = 960;
+
+var path = d3.geoPath();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+/* JavaScript goes here. */
+    var geojson = {};
+d3.json("ie.quant.json", function(error, topology) {
+  geojson = topojson.feature(topology, topology.objects.tracts);
+  console.log("geojson", geojson);
+  
+  svg.selectAll("path")
+      .data(geojson.features)
+    .enter().append("path")
+      .attr("d", path)
+      .attr("id",function(d) {console.log(d);return d.properties.CON_ID})
+      .append("title")
+      .text(function(d) {return d.properties.MAX_CON_NA});
+});
+
+
+  </script>
+  <body>
+
+    <select name="area_ids" class="form-control zip county user-error" required="required" aria-invalid="true"><option value="">Select your constituency</option>
+      <option value="36">Carlow-Kilkenny</option>
+      <option value="37">Cavan-Monaghan</option>
+      <option value="38">Clare</option>
+      <option value="39">Cork East</option>
+      <option value="40">Cork North Central</option>
+      <option value="41">Cork North West</option>
+      <option value="42">Cork South Central</option>
+      <option value="43">Cork South West</option>
+      <option value="44">Donegal</option>
+      <option value="45">Dublin Bay North</option>
+      <option value="46">Dublin Bay South</option>
+      <option value="47">Dublin Central</option>
+      <option value="48">Dublin Fingal</option>
+      <option value="49">Dublin Mid West</option>
+      <option value="50">Dublin North West</option>
+      <option value="51">Dublin Rathdown</option>
+      <option value="52">Dublin South Central</option>
+      <option value="53">Dublin South West</option>
+      <option value="54">Dublin West</option>
+      <option value="55">Dun Laoghaire</option>
+      <option value="56">Galway East</option>
+      <option value="57">Galway West</option>
+      <option value="58">Kerry</option>
+      <option value="59">Kildare North</option>
+      <option value="60">Kildare South</option>
+      <option value="61">Laois</option>
+      <option value="69">Laois-Offaly</option>
+      <option value="62">Limerick City</option>
+      <option value="63">Limerick County</option>
+      <option value="64">Longford-Westmeath</option>
+      <option value="65">Louth</option>
+      <option value="66">Mayo</option>
+      <option value="67">Meath East</option>
+      <option value="68">Meath West</option>
+      <option value="70">Offaly</option>
+      <option value="71">Roscommon-Galway</option>
+      <option value="72">Sligo-Leitrim</option>
+      <option value="35">test 2</option>
+      <option value="34">test constituency</option>
+      <option value="73">Tipperary</option>
+      <option value="74">Waterford</option>
+      <option value="75">Wexford</option>
+      <option value="76">Wicklow</option>
+    </select>
